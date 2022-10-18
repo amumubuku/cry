@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Crypto COIN</title>
+	</head>
+	<body>
+		<div class="content"></div>
+	</body>
+	<script type="text/javascript" src="/src/crypto-js.min.js"></script>
+	<script type="text/javascript">
+		var key = 'Hai0311.'
+		var content = 'H H z data'
+		function Encrypt(content, key) {
+			return CryptoJS.AES.encrypt(content, key).toString()
+		}
+		function Decrypt(ciphertext, key) {
+			var bytes = CryptoJS.AES.decrypt(ciphertext, key)
+			return bytes.toString(CryptoJS.enc.Utf8)
+		}
+		var data = Decrypt(Encrypt(content, key), key)
+		console.log(data === content, content) // 'my message'
+	</script>
+</html>
