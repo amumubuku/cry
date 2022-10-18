@@ -11,16 +11,31 @@
 	</body>
 	<script type="text/javascript" src="/src/crypto-js.min.js"></script>
 	<script type="text/javascript">
-		var key = 'Hai0311.'
-		var content = 'H H z data'
-		function Encrypt(content, key) {
-			return CryptoJS.AES.encrypt(content, key).toString()
+		var key = '.'
+		var content = ''
+		var num = 1
+		function Encrypt(content, key, num = 1) {
+			let res = [...Array(num)].map(_ => 0)
+			let contentArr = []
+			let length = content.length / num
+			let chuk = length % 2 === 0 ? length : length + 1
+			res.forEach((ele, index) => {
+				contentArr.push(content.slice(index * chuk, (index + 1) * chuk))
+			})
+			contentArr.forEach((element, index) => {
+				res[index] = CryptoJS.AES.encrypt(element, key).toString()
+			})
+			return res
 		}
 		function Decrypt(ciphertext, key) {
-			var bytes = CryptoJS.AES.decrypt(ciphertext, key)
-			return bytes.toString(CryptoJS.enc.Utf8)
+			let res = []
+			ciphertext.forEach(element => {
+				let bytes = CryptoJS.AES.decrypt(element, key)
+				res.push(bytes.toString(CryptoJS.enc.Utf8))
+			})
+			return res
 		}
-		var data = Decrypt(Encrypt(content, key), key)
-		console.log(data === content, content) // 'my message'
+		// var data = Decrypt(Encrypt(content, key, 2), key)
+		// console.log(data)
 	</script>
 </html>
