@@ -5,15 +5,66 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Crypto COIN</title>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="index.css" type="text/css" />
 	</head>
 	<body>
-		<div class="content"></div>
+		<div class="content">
+			<div class="col-xl-8 align-items-stretch">
+				<div class="card full-width">
+					<div class="card-body">
+						<h4 class="card-title">CRYPTO</h4>
+						<div class="form-group">
+							<label>KEY</label>
+							<input class="form-control" type="string" id="mintAmountInput" value="" placeholder="content" />
+						</div>
+						<div class="form-group">
+							<label>CONTENT</label>
+							<input class="form-control" type="string" id="mintAmountInput2" value="" placeholder="content" />
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary btn-lg btn-block mb-3" id="mintButton">加密</button>
+							<button class="btn btn-primary btn-lg btn-block mb-3" id="mintButton2">解密</button>
+						</div>
+						<p class="info-text alert alert-secondary">
+							result:
+							<span id="getAccountsResult"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
+
 	<script type="text/javascript" src="/src/crypto-js.min.js"></script>
 	<script type="text/javascript">
+		// inputs
+		const mintAmountInput = document.getElementById('mintAmountInput')
+		const mintAmountInput2 = document.getElementById('mintAmountInput2')
+		const result = document.getElementById('getAccountsResult')
+		// buttons
+		const mintButton = document.getElementById('mintButton')
+		const mintButton2 = document.getElementById('mintButton2')
 		var key = '.'
 		var content = ''
 		var num = 1
+		mintButton.onclick = () => {
+			if (initForm()) {
+				result.innerHTML = Encrypt(content, key, num)
+			}
+		}
+
+		mintButton2.onclick = () => {
+			if (initForm()) {
+				result.innerHTML = Decrypt([content], key)
+			}
+		}
+		function initForm() {
+			key = mintAmountInput.value
+			content = mintAmountInput2.value
+			return key && content
+		}
 		function Encrypt(content, key, num = 1) {
 			let res = [...Array(num)].map(_ => 0)
 			let contentArr = []
