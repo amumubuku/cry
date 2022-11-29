@@ -48,7 +48,6 @@
 		const mintButton2 = document.getElementById('mintButton2')
 		var key = '.'
 		var content = ''
-		var num = 1
 		mintButton.onclick = () => {
 			if (initForm()) {
 				result.innerHTML = Encrypt(content, key, num)
@@ -65,25 +64,11 @@
 			content = mintAmountInput2.value
 			return key && content
 		}
-		function Encrypt(content, key, num = 1) {
-			let res = [...Array(num)].map(_ => 0)
-			let contentArr = []
-			let length = content.length / num
-			let chuk = length % 2 === 0 ? length : length + 1
-			res.forEach((ele, index) => {
-				contentArr.push(content.slice(index * chuk, (index + 1) * chuk))
-			})
-			contentArr.forEach((element, index) => {
-				res[index] = CryptoJS.AES.encrypt(element, key).toString()
-			})
-			return res
+		function Encrypt(content, key) {
+			return CryptoJS.AES.encrypt(element, key).toString()
 		}
 		function Decrypt(ciphertext, key) {
-			let res = []
-			ciphertext.forEach(element => {
-				let bytes = CryptoJS.AES.decrypt(element, key)
-				res.push(bytes.toString(CryptoJS.enc.Utf8))
-			})
+			let res = CryptoJS.AES.decrypt(ciphertext, key).toString(CryptoJS.enc.Utf8)
 			return res
 		}
 		// var data = Decrypt(Encrypt(content, key, 2), key)
