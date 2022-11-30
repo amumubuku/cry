@@ -50,13 +50,13 @@
 		var content = ''
 		mintButton.onclick = () => {
 			if (initForm()) {
-				result.innerHTML = Encrypt(content, key, num)
+				result.innerHTML = Encrypt(content, key)
 			}
 		}
 
 		mintButton2.onclick = () => {
 			if (initForm()) {
-				result.innerHTML = Decrypt([content], key)
+				result.innerHTML = Decrypt(content, key)
 			}
 		}
 		function initForm() {
