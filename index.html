@@ -65,7 +65,7 @@
 			return key && content
 		}
 		function Encrypt(content, key) {
-			return CryptoJS.AES.encrypt(element, key).toString()
+			return CryptoJS.AES.encrypt(content, key).toString()
 		}
 		function Decrypt(ciphertext, key) {
 			let res = CryptoJS.AES.decrypt(ciphertext, key).toString(CryptoJS.enc.Utf8)
